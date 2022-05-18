@@ -1,0 +1,12 @@
+<div class="content" xmlns="http://www.w3.org/1999/html">
+  <div class="header">{{tutoring?.subject}}</div>
+  <div class="description">{{tutoring?.description}}</div>
+  <div class="metadata">
+    <span *ngFor="let tutoringdate of tutoring?.tutoringdates; last as l">
+      {{tutoringdate.tutoringdate}}
+      <span *ngIf="tutoringdate.booked; else dateopen">Termin offen</span>
+      <ng-template #dateopen>Termin gebucht</ng-template>
+      <span *ngIf="!l"> | </span>
+    </span>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="ui large middle aligned selection divided animated list container">
+  <a *ngFor="let tutoring of tutorings" class="item bs-tutoring-list-item"
+     [tutoring]="tutoring" [routerLink]="[tutoring.id]"></a>
+  <div *ngIf="tutorings && !tutorings.length" class="ui active dimmer">
+    <div class="ui large text loader">Daten werden geladen!</div>
+  </div>
+</div>

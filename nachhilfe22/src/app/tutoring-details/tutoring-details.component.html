@@ -1,0 +1,52 @@
+<div class="ui grid container" *ngIf="tutoring">
+  <div class="two wide column">
+    <button [routerLink]="'/tutorings'" class="ui right floated purple button">Zurück zur Liste</button>
+  </div>
+  <div class="fourteen wide column">
+    <h1 class="ui header">{{ tutoring.subject }}</h1>
+    <div class="description">
+      Description: {{ tutoring.description }}
+    </div>
+    <div class="ui divider"></div>
+    <div class="ui grid">
+      <div class="eight wide column">
+        <h4 class="ui header">Offer Dates</h4>
+        <div class="description">Select date and book your tutoring</div>
+        <table class="ui purple striped table">
+          <thead>
+          <tr>
+            <th class="one wide"></th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr></thead>
+          <tbody>
+          <tr *ngFor="let tutoringdate of tutoring?.tutoringdates;">
+            <td><input type="radio" name="seltutoringdate" value={{tutoringdate.id}}></td>
+            <td data-label="tutoringdate">{{tutoringdate.tutoringdate}}</td>
+            <td data-label="tutoringstatus">
+              <span *ngIf="tutoringdate.booked; else dateopen">Open</span>
+              <ng-template #dateopen>Booked</ng-template></td>
+          </tr>
+          </tbody>
+        </table>
+        <button class="ui green button">Book Date</button>
+<!--    </span>-->
+      </div>
+  </div>
+    <div class="ui divider"></div>
+    <h4 class="ui header">Comments to Offer</h4>
+    <span class="description" *ngIf="tutoring.tutoringcomments && tutoring.tutoringcomments.length==0">
+      No comments for this tutoring offer!
+    </span>
+    <div class="ui middle aligned divided list">
+      <div class="item">
+        <i class="comment icon" *ngIf="tutoring.tutoringcomments && tutoring.tutoringcomments.length>0"></i>
+        <div class="content">
+          <span *ngFor="let tutoringcomment of tutoring?.tutoringcomments; last as l">
+            {{tutoringcomment.comment}}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
