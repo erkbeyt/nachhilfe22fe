@@ -1,9 +1,10 @@
 <div class="ui borderless main huge menu" style="">
   <img class="ui tiny image" src="https://upload.wikimedia.org/wikipedia/de/e/e5/Fhooe-logo.svg">
   <div class="ui text container">
-    <a routerLink="home" routerLinkActive="active" class="item">Home</a>
+<!--    <a routerLink="home" routerLinkActive="active" class="item">Home</a>-->
     <a routerLink="tutorings" routerLinkActive="active" class="item">Tutorings</a>
-    <a routerLink="login" routerLinkActive="active" class="item">Login</a>
+    <a *ngIf="isLoggedIn()" routerLink="admin" routerLinkActive="active" class="item">Administration</a>
+    <a routerLink="login" routerLinkActive="active" class="item">{{getLoginLabel()}}</a>
   </div>
 </div>
 <router-outlet></router-outlet>

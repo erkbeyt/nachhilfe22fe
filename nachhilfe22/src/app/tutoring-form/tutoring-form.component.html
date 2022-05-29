@@ -1,0 +1,35 @@
+<div class="ui container">
+<h1>Tutoring Form</h1>
+<form class="ui large form" [formGroup]="tutoringForm" (ngSubmit)="submitForm()">
+  <input type="hidden" formControlName="id">
+  <div class="field">
+    <label>Subject</label>
+    <input formControlName="subject">
+    <div *ngIf="errors['subject']" class="ui negative message">{{errors['subject']}}</div>
+  </div>
+  <div class="field">
+    <label>Beschreibung</label>
+    <textarea rows="2" formControlName="description"></textarea>
+    <div *ngIf="errors['description']" class="ui negative message">{{errors['description']}}</div>
+  </div>
+  <div class="field">
+    <label>Tutoring Offer Dates</label>
+    <div formArrayName="tutoringdates">
+      <div class="fields" *ngFor="let control of tutoringdates?.controls; let i = index; last as l" formGroupName="{{i}}">
+        <input type="hidden" formControlName="id">
+        <div class="six wide field">
+          <input type="datetime-local" formControlName="tutoringdate">
+        </div>
+        <div class="one wide field" *ngIf="l">
+          <button (click)="addDateControl()" class="ui large button" type="button">+</button>
+        </div>
+      </div>
+<!--      <input type="hidden" formControlName="booked">-->
+<!--      <input type="hidden" formControlName="accepted">-->
+<!--      <input type="hidden" formControlName="status">-->
+    </div>
+    <div *ngIf="errors['date']" class="ui negative message">{{errors['date']}}</div>
+  </div>
+  <button type="submit" class="ui green button" [disabled]="tutoringForm.invalid">Save</button>
+</form>
+</div>

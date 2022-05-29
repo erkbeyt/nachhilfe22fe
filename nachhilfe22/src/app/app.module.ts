@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-// import { AppRoutingModule} from "./app-routing.module";
 
 import { AppComponent } from './app.component';
 import { TutoringListComponent } from './tutoring-list/tutoring-list.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TutoringService} from "./shared/tutoring-service";
 import { TutoringListItemComponent } from './tutoring-list-item/tutoring-list-item.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TutoringDetailsComponent } from './tutoring-details/tutoring-details.component';
+import { TutoringFormComponent } from './tutoring-form/tutoring-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import {AuthenticationService} from "./shared/authentication.service";
+import {TokenInterceptorService} from "./shared/token-interceptor.service";
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -16,14 +22,24 @@ import { TutoringDetailsComponent } from './tutoring-details/tutoring-details.co
     TutoringListComponent,
     TutoringListItemComponent,
     TutoringDetailsComponent,
+    TutoringFormComponent,
+    LoginComponent,
 
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
-  providers: [TutoringService],
+  providers: [TutoringService, AuthenticationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

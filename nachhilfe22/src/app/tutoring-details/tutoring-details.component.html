@@ -9,30 +9,41 @@
     </div>
     <div class="ui divider"></div>
     <div class="ui grid">
-      <div class="eight wide column">
+      <div class="ten wide column">
         <h4 class="ui header">Offer Dates</h4>
         <div class="description">Select date and book your tutoring</div>
+        <form [formGroup]="bookingForm" (ngsubmit)="bookTutoring()">
         <table class="ui purple striped table">
           <thead>
           <tr>
-            <th class="one wide"></th>
+            <th class="one wide" *ngIf="isLoggedIn()"></th>
             <th>Date</th>
             <th>Status</th>
           </tr></thead>
           <tbody>
           <tr *ngFor="let tutoringdate of tutoring?.tutoringdates;">
-            <td><input type="radio" name="seltutoringdate" value={{tutoringdate.id}}></td>
+            <td *ngIf="isLoggedIn()"><input type="radio" name="tutoringdate" value="{{tutoringdate.id}}"></td>
             <td data-label="tutoringdate">{{tutoringdate.tutoringdate}}</td>
             <td data-label="tutoringstatus">
-              <span *ngIf="tutoringdate.booked; else dateopen">Open</span>
-              <ng-template #dateopen>Booked</ng-template></td>
+              <span *ngIf="tutoringdate.booked; else dateopen">Booked</span>
+              <ng-template #dateopen>Open</ng-template>
+            </td>
           </tr>
           </tbody>
         </table>
-        <button class="ui green button">Book Date</button>
-<!--    </span>-->
+        <button class="ui green button" type="submit" *ngIf="isLoggedIn()">
+          <i class="check icon"></i>Book Tutoring
+        </button>
+          <button *ngIf="authService.isLoggedIn()" class="ui red labeled icon button" (click)="removeTutoring()">
+            <i class="remove icon"></i>Delete Tutoring
+          </button>
+          <a *ngIf="authService.isLoggedIn()" class="ui yellow labeled icon button" [routerLink]="['../../admin', tutoring?.id]">
+            <i class="write icon"></i>Edit Tutoring
+          </a>
+        </form>
       </div>
   </div>
+    <div *ngIf="isLoggedIn()">
     <div class="ui divider"></div>
     <h4 class="ui header">Comments to Offer</h4>
     <span class="description" *ngIf="tutoring.tutoringcomments && tutoring.tutoringcomments.length==0">
@@ -47,6 +58,7 @@
           </span>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </div>
