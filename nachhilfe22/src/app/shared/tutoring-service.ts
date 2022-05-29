@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import { Observable, throwError} from "rxjs";
 import {catchError, retry} from "rxjs/operators";
-import {Tutoring} from "./tutoring";
+import {Tutoring, User} from "./tutoring";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,10 @@ export class TutoringService {
 
   getSingle(id:number):Observable<Tutoring>{
     return this.http.get<Tutoring>(`${this.api}/tutoringbyid/${id}`).pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  getSingleUser(id:number):Observable<User>{
+    return this.http.get<User>(`${this.api}/userbyid/${id}`).pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
   remove(id:number):Observable<any>{

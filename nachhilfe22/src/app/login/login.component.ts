@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../shared/authentication.service";
+import {UserService} from "../shared/user-service";
 
 interface Response{
   access_token : string;
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService : AuthenticationService
+    private authService : AuthenticationService,
+    private us: UserService
   ) {
     this.loginForm = this.fb.group({});
   }

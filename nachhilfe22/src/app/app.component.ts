@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {AuthenticationService} from "./shared/authentication.service";
+import {TutoringService} from "./shared/tutoring-service";
+import {UserService} from "./shared/user-service";
 
 @Component({
   selector: 'bs-root',
@@ -10,11 +12,19 @@ import {AuthenticationService} from "./shared/authentication.service";
 export class AppComponent {
   title = 'nachhilfe22';
 
-  constructor(private authService: AuthenticationService) {
+
+  constructor(private authService: AuthenticationService, private us:UserService) {
+  }
+
+  isTutorLoggedIn(){
+    if(this.us.isUserTutor && this.authService.isLoggedIn()){
+      return true;
+    }else
+    return false;
   }
 
   isLoggedIn(){
-    return this.authService.isLoggedIn();
+      return this.authService.isLoggedIn();
   }
 
   getLoginLabel(){

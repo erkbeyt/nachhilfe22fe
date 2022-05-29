@@ -10,16 +10,6 @@ export class TutoringFactory {
     );
   }
 
-  // static fromObjectDate(rawTutoringdate:any):Tutoringdate{
-  //   return new Tutoringdate(
-  //     rawTutoringdate.id,
-  //     rawTutoringdate.tutoringdate,
-  //     rawTutoringdate.accepted,
-  //     rawTutoringdate.booked,
-  //     rawTutoringdate.status,
-  //   );
-  // }
-
   static fromObject(rawTutoring:any):Tutoring{
     return new Tutoring(
       rawTutoring.id,

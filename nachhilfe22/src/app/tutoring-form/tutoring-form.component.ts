@@ -32,12 +32,12 @@ export class TutoringFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const tuId = this.route.snapshot.params["id"];
-
-    if(tuId){
+    const id = this.route.snapshot.params["id"];
+    if(id){
       this.isUpdatingTutoring = true;
-      this.ts.getSingle(tuId).subscribe(tutoring=>{
+      this.ts.getSingle(id).subscribe(tutoring=>{
         this.tutoring = tutoring;
+        console.log("update");
         this.initTutoring();
       })
     }else{
@@ -47,12 +47,12 @@ export class TutoringFormComponent implements OnInit {
 
   initTutoring(){
     this.buildDateArray();
-
+    console.log("build");
     this.tutoringForm = this.fb.group({
       id: this.tutoring.id,
       subject: [this.tutoring.subject,Validators.required],
       description: [this.tutoring.description,Validators.required],
-      tutoringdates: this.tutoringdates,
+      tutoringdates: this.tutoringdates
     });
 
     this.tutoringForm.statusChanges.subscribe(()=>
