@@ -9,7 +9,7 @@ export class Tutoring {
   constructor(public id:number,
               public subject:string,
               public description:string,
+              public userid:number,
               public tutoringdates:Tutoringdate[],
-              public user:User[], //evtl nur ein User? noch unsicher
               public tutoringcomments?:Tutoringcomment[]) {}
 }

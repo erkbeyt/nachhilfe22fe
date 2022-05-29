@@ -16,7 +16,7 @@ export class TutoringListComponent implements OnInit {
 
   ngOnInit(): void {
     this.ts.getAll().subscribe(res => this.tutorings = res);
-    console.log(this.ts);
+    // console.log(this.ts);
   }
 
 }
