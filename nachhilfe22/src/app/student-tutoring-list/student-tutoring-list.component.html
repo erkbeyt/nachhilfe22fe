@@ -1,0 +1,23 @@
+<div class="ui container">
+<h1>Your booking list from the tutor offers</h1>
+  <div class="ui small middle aligned selection divided animated list">
+    <div class="item" *ngFor="let tutoring of tutorings">
+        <div class="content" xmlns="http://www.w3.org/1999/html"
+             *ngIf="tutoring.tutoringdates.length > 0">
+          <div class="header">{{tutoring?.subject}}</div>
+          <div class="description">{{tutoring?.description}}</div>
+          <div class="metadata">
+            <span *ngFor="let tutoringdate of tutoring?.tutoringdates; last as l">
+              <span>Date: {{tutoringdate.tutoringdate}} </span>
+              <span *ngIf="tutoringdate.accepted">| Accepted from tutor</span>
+              <span *ngIf="!tutoringdate.accepted">| Tutor hasn't accepted yet</span>
+              <span *ngIf="!l"> <br> </span>
+            </span>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div *ngIf="tutorings && !tutorings.length" class="ui active dimmer">
+    <div class="ui large text loader">Daten werden geladen!</div>
+  </div>
+</div>

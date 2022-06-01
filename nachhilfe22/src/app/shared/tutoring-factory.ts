@@ -4,7 +4,7 @@ export class TutoringFactory {
 
   static empty():Tutoring{
     return new Tutoring(0,'','', 0,
-      [{id:0, tutoringdate:new Date(), accepted:false, booked:false, status:''}],
+      [{id:0, tutoringdate:new Date(), accepted:false, booked:false, status:'', user_id:0}],
       // [{id:0, firstName:'', lastName:'', email:'', isTutor:true, study:''}],
       []
     );

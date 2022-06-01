@@ -11,39 +11,43 @@
     <div class="ui grid">
       <div class="ten wide column">
         <h4 class="ui header">Offer Dates</h4>
-        <div class="description">Select date and book your tutoring</div>
-        <form [formGroup]="bookingForm" (ngsubmit)="bookTutoring()">
+        <div class="description">
+          Select date and book your tutoring - If there are no dates available, the table will appear empty! <br>
+          Booking an offer means, you book only one hour, if you want more hours please comment or book more dates.
+        </div>
         <table class="ui purple striped table">
           <thead>
-          <tr>
-            <th class="one wide" *ngIf="isLoggedIn()"></th>
-            <th>Date</th>
-            <th>Status</th>
-          </tr></thead>
+            <tr>
+              <th>Date</th>
+              <th>Status</th>
+              <th *ngIf="isLoggedIn()"></th>
+            </tr>
+          </thead>
           <tbody>
-          <tr *ngFor="let tutoringdate of tutoring?.tutoringdates;">
-            <td *ngIf="isLoggedIn()"><input type="radio" name="tutoringdate" value="{{tutoringdate.id}}"></td>
-            <td data-label="tutoringdate">{{tutoringdate.tutoringdate}}</td>
-            <td data-label="tutoringstatus">
-              <span *ngIf="tutoringdate.booked; else dateopen">Booked</span>
-              <ng-template #dateopen>Open</ng-template>
-            </td>
-          </tr>
+            <tr *ngFor="let tutoringdate of tutoring?.tutoringdates">
+              <td data-label="tutoringdate" *ngIf="!tutoringdate.accepted">{{tutoringdate.tutoringdate}}</td>
+              <td data-label="tutoringstatus" *ngIf="!tutoringdate.accepted">
+                <span *ngIf="tutoringdate.booked; else dateopen">Booked</span>
+                <ng-template #dateopen>Open</ng-template>
+              </td>
+              <td>
+                <button class="small ui green labeled icon button " *ngIf="isLoggedIn() && !tutoringdate.accepted" (click)="bookTutoring(tutoringdate.id)">
+                  <i class="check icon"></i>Book Tutoring
+                </button>
+              </td>
+            </tr>
           </tbody>
         </table>
-        <button class="ui green button" type="submit" *ngIf="isLoggedIn()">
-          <i class="check icon"></i>Book Tutoring
-        </button>
-          <button *ngIf="authService.isLoggedIn()" class="ui red labeled icon button" (click)="removeTutoring()">
+          <button *ngIf="authService.isLoggedIn() && us.isTutorLoggedIn()" class="ui red labeled icon button" (click)="removeTutoring()">
             <i class="remove icon"></i>Delete Tutoring
           </button>
-          <a *ngIf="authService.isLoggedIn()" class="ui yellow labeled icon button" [routerLink]="['../../admin', tutoring?.id]">
+          <a *ngIf="authService.isLoggedIn() && us.isTutorLoggedIn()" class="ui yellow labeled icon button" [routerLink]="['../../admin', tutoring?.id]">
             <i class="write icon"></i>Edit Tutoring
           </a>
-        </form>
+<!--        </form>-->
       </div>
   </div>
-    <div *ngIf="isLoggedIn()">
+    <div *ngIf="isLoggedIn() && us.isTutorLoggedIn()">
     <div class="ui divider"></div>
     <h4 class="ui header">Comments to Offer</h4>
     <span class="description" *ngIf="tutoring.tutoringcomments && tutoring.tutoringcomments.length==0">

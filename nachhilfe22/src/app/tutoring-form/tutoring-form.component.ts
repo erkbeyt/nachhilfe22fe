@@ -4,8 +4,9 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angul
 import {ActivatedRoute, Router} from "@angular/router";
 import {TutoringFactory} from "../shared/tutoring-factory";
 import {TutoringService} from "../shared/tutoring-service";
-import {Tutoring, Tutoringdate} from "../shared/tutoring";
+import {Tutoring} from "../shared/tutoring";
 import {TutoringFormErrorMessages} from "./tutoring-form-error-messages";
+import * as moment from 'moment';
 
 @Component({
   selector: 'bs-tutoring-form',
@@ -37,17 +38,15 @@ export class TutoringFormComponent implements OnInit {
       this.isUpdatingTutoring = true;
       this.ts.getSingle(id).subscribe(tutoring=>{
         this.tutoring = tutoring;
-        console.log("update");
         this.initTutoring();
       })
-    }else{
-      this.initTutoring();
     }
+    this.initTutoring();
+    // console.log(moment.locale());
   }
 
   initTutoring(){
     this.buildDateArray();
-    console.log("build");
     this.tutoringForm = this.fb.group({
       id: this.tutoring.id,
       subject: [this.tutoring.subject,Validators.required],
@@ -58,6 +57,8 @@ export class TutoringFormComponent implements OnInit {
     this.tutoringForm.statusChanges.subscribe(()=>
       this.updateErrorMessages()
     );
+
+
   }
 
   updateErrorMessages(){
@@ -84,16 +85,14 @@ export class TutoringFormComponent implements OnInit {
       for(let date of this.tutoring.tutoringdates){
         let fg = this.fb.group({ // Einzelne Dates in FormGroup
           id: new FormControl(date.id),
-          tutoringdate: new FormControl(date.tutoringdate),
+          tutoringdate: new FormControl(moment(date.tutoringdate).format( "YYYY-MM-DDTHH:mm")),
           booked: new FormControl(date.booked),
           accepted: new FormControl(date.accepted),
+          user_id: new FormControl(date.user_id),
           status: new FormControl(date.status),
         });
         this.tutoringdates.push(fg);
       }
-    }
-    else{
-      this.addDateControl();
     }
   }
 
@@ -103,6 +102,7 @@ export class TutoringFormComponent implements OnInit {
         tutoringdate: new FormControl(""),
         booked: new FormControl(false),
         accepted: new FormControl(false),
+        user_id: new FormControl(0),
         status: new FormControl(""),
       }
     ));
@@ -111,6 +111,7 @@ export class TutoringFormComponent implements OnInit {
   submitForm(){
     const tutoring: Tutoring = TutoringFactory.fromObject(this.tutoringForm.value);
 
+    //UPDATE TUTORING OFFER
     if(this.isUpdatingTutoring){
       this.ts.update(tutoring).subscribe(res=>{
         this.router.navigate(['../../tutorings', this.tutoring.id],{
@@ -118,9 +119,8 @@ export class TutoringFormComponent implements OnInit {
         });
       });
     }else{
-      //save tutoring
+      //SAVE TUTORING OFFER
       tutoring.userid = this.authService.getCurrentUserId();
-      console.log("User ID: "+this.authService.getCurrentUserId());
       this.ts.create(tutoring).subscribe(res => {
         this.tutoring = TutoringFactory.empty();
         this.tutoringForm.reset(TutoringFactory.empty());

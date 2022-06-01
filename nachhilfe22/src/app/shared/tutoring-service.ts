@@ -25,6 +25,14 @@ export class TutoringService {
     return this.http.get<User>(`${this.api}/userbyid/${id}`).pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
+  getUserTutoring(id:number):Observable<Array<Tutoring>>{
+    return this.http.get<Tutoring>(`${this.api}/indexbyuser/${id}`).pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  getTutoringOffers(id:number):Observable<Array<Tutoring>>{
+    return this.http.get<Tutoring>(`${this.api}/indexbytutor/${id}`).pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
   remove(id:number):Observable<any>{
     return this.http.delete(`${this.api}/tutoring/${id}`).pipe(retry(3)).pipe(catchError(this.errorHandler));
   }

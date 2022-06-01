@@ -5,6 +5,7 @@ import {TutoringDetailsComponent} from "./tutoring-details/tutoring-details.comp
 import {LoginComponent} from "./login/login.component";
 import {CanNavigateToAdminGuard} from "./can-navigate-to-admin.guard";
 import {TutoringFormComponent} from "./tutoring-form/tutoring-form.component";
+import {StudentTutoringListComponent} from "./student-tutoring-list/student-tutoring-list.component";
 
 const routes: Routes = [
   {path:'', redirectTo:'tutorings', pathMatch:'full'},
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: 'tutorings', component: TutoringListComponent},
   {path: 'tutorings/:id', component: TutoringDetailsComponent},
   {path: 'admin', component: TutoringFormComponent, canActivate: [CanNavigateToAdminGuard] },
-  {path:'admin/:id', component: TutoringFormComponent, canActivate: [CanNavigateToAdminGuard]},
+  {path: 'admin/:id', component: TutoringFormComponent, canActivate: [CanNavigateToAdminGuard]},
+  {path: 'studentlist', component: StudentTutoringListComponent},
   {path: 'login', component: LoginComponent },
 ]
 

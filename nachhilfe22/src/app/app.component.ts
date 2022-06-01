@@ -13,18 +13,20 @@ export class AppComponent {
   title = 'nachhilfe22';
 
 
-  constructor(private authService: AuthenticationService, private us:UserService) {
-  }
-
-  isTutorLoggedIn(){
-    if(this.us.isUserTutor && this.authService.isLoggedIn()){
-      return true;
-    }else
-    return false;
+  constructor(private authService: AuthenticationService, public us:UserService) {
   }
 
   isLoggedIn(){
       return this.authService.isLoggedIn();
+  }
+
+  //CHECKING IF USER IS TUTOR
+  isTutorLoggedIn(){
+    let val = sessionStorage.getItem('tutor');
+    if(val==='1'){
+      return true;
+    }
+    return false;
   }
 
   getLoginLabel(){

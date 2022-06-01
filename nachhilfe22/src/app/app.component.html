@@ -1,9 +1,14 @@
-<div class="ui borderless main huge menu" style="">
+<div class="hero-image">
+  <div class="hero-text">
+    <h1 style="font-size:30px">KWM Go Student</h1>
+  </div>
+</div>
+<div class="ui borderless main massive menu" style="margin-top: 0;">
   <img class="ui tiny image" src="https://upload.wikimedia.org/wikipedia/de/e/e5/Fhooe-logo.svg">
   <div class="ui text container">
-<!--    <a routerLink="home" routerLinkActive="active" class="item">Home</a>-->
     <a routerLink="tutorings" routerLinkActive="active" class="item">Tutorings</a>
-    <a *ngIf="isLoggedIn()" routerLink="admin" routerLinkActive="active" class="item">Administration</a>
+    <a *ngIf="isLoggedIn() && us.isTutorLoggedIn()" routerLink="admin" routerLinkActive="active" class="item">Administration</a>
+    <a *ngIf="isLoggedIn() && us.isTutorLoggedIn()==false" routerLink="studentlist" routerLinkActive="active" class="item">My Bookings</a>
     <a routerLink="login" routerLinkActive="active" class="item">{{getLoginLabel()}}</a>
   </div>
 </div>

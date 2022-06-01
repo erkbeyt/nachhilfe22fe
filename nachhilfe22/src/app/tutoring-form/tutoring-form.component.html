@@ -17,11 +17,22 @@
     <div formArrayName="tutoringdates">
       <div class="fields" *ngFor="let control of tutoringdates?.controls; let i = index; last as l" formGroupName="{{i}}">
         <input type="hidden" formControlName="id">
-        <div class="six wide field">
+        <div class="four wide field">
           <input type="datetime-local" formControlName="tutoringdate">
         </div>
+        <div class="six wide field">
+          <input type="text" formControlName="status" placeholder="Status (optional)">
+        </div>
+        <div class="two wide field ui read-only checkbox">
+          <input type="checkbox" formControlName="booked">
+          <label>Date booked?</label>
+        </div>
+        <div class="two wide field ui checkbox">
+          <input type="checkbox" formControlName="accepted">
+          <label>Accept Booking?</label>
+        </div>
         <div class="one wide field" *ngIf="l">
-          <button (click)="addDateControl()" class="ui large button" type="button">+</button>
+          <button (click)="addDateControl()" class="ui large violet button" type="button">+</button>
         </div>
       </div>
     </div>

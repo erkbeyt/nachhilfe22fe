@@ -27,9 +27,14 @@
         Passwort ist verpflichtend!
       </div>
     </div>
-    <button type="submit" class="ui button" [disabled]="loginForm.invalid">Login</button>
+    <button type="submit" class="ui large green button" [disabled]="loginForm.invalid">Login</button>
   </form>
 </div>
 <div *ngIf="isLoggedIn()">
-  <button type="button" class="ui button" (click)="logout()">Logout</button>
+  <div class="ui one column stackable center aligned page grid">
+    <div class="column twelve wide">
+      <h2>You want to logout?</h2>
+      <button type="button" class="ui large red button" (click)="logout()">Logout</button>
+    </div>
+  </div>
 </div>

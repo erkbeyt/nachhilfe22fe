@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authService : AuthenticationService,
-    private us: UserService
+    private us:UserService
   ) {
     this.loginForm = this.fb.group({});
   }
@@ -39,9 +39,13 @@ export class LoginComponent implements OnInit {
       this.authService.login(val.username, val.password).subscribe((
         res: any) =>{
         this.authService.setSessionStorage((res as Response).access_token);
+        this.checkRole(this.authService.getCurrentUserId());
+        // console.log("HALLO");
         this.router.navigateByUrl("/");
       });
+
     }
+
   }
 
   logout(){
@@ -50,5 +54,10 @@ export class LoginComponent implements OnInit {
 
   isLoggedIn(){
     return this.authService.isLoggedIn();
+  }
+
+  checkRole(id:number){
+    // console.log("USER ID"+id);
+    this.us.setUserRole(id);
   }
 }

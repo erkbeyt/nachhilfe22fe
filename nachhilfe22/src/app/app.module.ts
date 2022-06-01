@@ -15,6 +15,7 @@ import {AuthenticationService} from "./shared/authentication.service";
 import {TokenInterceptorService} from "./shared/token-interceptor.service";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { StudentTutoringListComponent } from './student-tutoring-list/student-tutoring-list.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     TutoringDetailsComponent,
     TutoringFormComponent,
     LoginComponent,
-
+    StudentTutoringListComponent
   ],
   imports: [
     BrowserModule,
